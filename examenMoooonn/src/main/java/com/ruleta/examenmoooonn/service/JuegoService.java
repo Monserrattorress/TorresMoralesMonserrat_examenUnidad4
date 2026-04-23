@@ -90,27 +90,4 @@ public class JuegoService {
         return tiroRepository.save(tiro);
     }
 
-    public Partida finalizarPartidaManual(Long partidaId) {
-        Partida partida = partidaRepository.findById(partidaId)
-                .orElseThrow(() -> new RuntimeException("Partida no encontrada con id: " + partidaId));
-
-        partida.setEstado(EstadoPartida.FINALIZADA);
-        return partidaRepository.save(partida);
-    }
-
-    public Jugador recargarSaldo(Long jugadorId, double monto) {
-        Jugador jugador = jugadorRepository.findById(jugadorId)
-                .orElseThrow(() -> new RuntimeException("Jugador no encontrado con id: " + jugadorId));
-
-        jugador.setSaldo(jugador.getSaldo() + monto);
-        return jugadorRepository.save(jugador);
-    }
-
-    public List<Partida> obtenerHistorialPartidas(Long jugadorId) {
-        return partidaRepository.findByJugador_IdOrderByFechaDesc(jugadorId);
-    }
-
-    private int lanzarDado() {
-        return random.nextInt(6) + 1;
-    }
 }
